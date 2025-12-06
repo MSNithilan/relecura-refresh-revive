@@ -38,7 +38,7 @@ export const Hero = () => {
               size="lg" 
               className="group bg-accent hover:bg-accent/90 text-accent-foreground shadow-[0_0_30px_hsl(195_92%_58%/0.3)] hover:shadow-[0_0_40px_hsl(195_92%_58%/0.5)] transition-all duration-300"
             >
-              Request Demo
+              Know More
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
