@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import blog1 from "@/assets/blog-1.png";
 import blog2 from "@/assets/blog-2.png";
 import blog3 from "@/assets/blog-3.png";
@@ -17,50 +18,59 @@ const blogPosts = [
   {
     image: blog3,
     date: "Nov 05, 2024",
-    title: "From Patent to Profit: The Role of AI in Identifying Lucrative Market Opportunities",
+    title:
+      "From Patent to Profit: The Role of AI in Identifying Lucrative Market Opportunities",
   },
 ];
 
+// Framer Motion variants for sliding left/right
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 150 : -150,
+    opacity: 0,
+    scale: 0.95,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -150 : 150,
+    opacity: 0,
+    scale: 0.95,
+  }),
+};
+
 export const BlogCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [slideDirection, setSlideDirection] = useState<"left" | "right">("right");
+  const [[index, direction], setIndex] = useState<[number, number]>([0, 0]);
 
-  const getVisiblePosts = () => {
-    const prev = (currentIndex - 1 + blogPosts.length) % blogPosts.length;
-    const next = (currentIndex + 1) % blogPosts.length;
-    return [
-      { ...blogPosts[prev], position: "left" },
-      { ...blogPosts[currentIndex], position: "center" },
-      { ...blogPosts[next], position: "right" },
-    ];
+  const post = blogPosts[index];
+
+  const goTo = (newIndex: number) => {
+    if (newIndex === index) return;
+    const dir = newIndex > index ? 1 : -1;
+    setIndex([((newIndex % blogPosts.length) + blogPosts.length) % blogPosts.length, dir]);
   };
 
-  const handlePrev = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setSlideDirection("left");
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev - 1 + blogPosts.length) % blogPosts.length);
-      setIsAnimating(false);
-    }, 300);
+  const goNext = () => {
+    setIndex(([i]) => {
+      const next = (i + 1) % blogPosts.length;
+      return [next, 1];
+    });
   };
 
-  const handleNext = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setSlideDirection("right");
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % blogPosts.length);
-      setIsAnimating(false);
-    }, 300);
+  const goPrev = () => {
+    setIndex(([i]) => {
+      const prev = (i - 1 + blogPosts.length) % blogPosts.length;
+      return [prev, -1];
+    });
   };
-
-  const visiblePosts = getVisiblePosts();
 
   return (
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
+        {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Recent Blog Posts
@@ -70,86 +80,68 @@ export const BlogCarousel = () => {
           </p>
         </div>
 
-        <div className="relative flex items-center justify-center gap-4 md:gap-8">
+        {/* Carousel */}
+        <div className="relative flex items-center justify-center">
           {/* Left Arrow */}
           <button
-            onClick={handlePrev}
-            className="absolute left-0 z-10 text-4xl md:text-5xl font-light text-muted-foreground hover:text-foreground transition-colors duration-300 select-none"
+            onClick={goPrev}
+            className="absolute left-0 md:left-10 text-4xl md:text-5xl font-light text-muted-foreground hover:text-foreground transition-colors duration-300 select-none"
           >
             ‹
           </button>
 
-          {/* Carousel Items */}
-          <div className="flex items-center justify-center gap-4 md:gap-6 overflow-hidden px-12 md:px-20">
-            {visiblePosts.map((post, index) => (
-              <div
-                key={`${post.title}-${index}`}
-                className={`transition-all duration-500 ease-out ${
-                  post.position === "center"
-                    ? "scale-100 opacity-100 z-10"
-                    : "scale-75 opacity-50 z-0 hidden md:block"
-                } ${
-                  isAnimating
-                    ? slideDirection === "right"
-                      ? "translate-x-[-20px]"
-                      : "translate-x-[20px]"
-                    : "translate-x-0"
-                }`}
+          {/* Slide */}
+          <div className="w-full max-w-3xl mx-auto overflow-hidden">
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+              <motion.div
+                key={index}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="flex flex-col items-center"
               >
-                <div className={`${
-                  post.position === "center" 
-                    ? "w-[360px] md:w-[520px] lg:w-[600px]" 
-                    : "w-[180px] md:w-[260px] lg:w-[300px]"
-                }`}>
-                  <div className={`overflow-hidden rounded-xl shadow-lg transition-all duration-500 ${
-                    isAnimating ? "scale-95" : "scale-100"
-                  } hover:shadow-xl`}>
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className={`w-full object-cover transition-all duration-500 ${
-                        post.position === "center" 
-                          ? "h-56 md:h-72 lg:h-80" 
-                          : "h-40 md:h-52 lg:h-60"
-                      } ${isAnimating ? "scale-105" : "scale-100 hover:scale-105"}`}
-                    />
-                  </div>
-                  {post.position === "center" && (
-                    <div className={`mt-4 transition-all duration-300 ${
-                      isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
-                    }`}>
-                      <p className="text-primary font-medium text-sm mb-2">
-                        {post.date}
-                      </p>
-                      <h3 className="text-foreground font-semibold text-lg leading-tight">
-                        {post.title}
-                      </h3>
-                    </div>
-                  )}
+                <div className="w-full rounded-2xl shadow-lg overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-72 md:h-80 lg:h-96 object-cover"
+                  />
                 </div>
-              </div>
-            ))}
+
+                <div className="mt-4 text-center max-w-2xl min-h-[90px]">
+                  <p className="text-primary font-medium text-sm mb-2">
+                    {post.date}
+                  </p>
+                  <h3 className="text-foreground font-semibold text-lg md:text-xl leading-tight">
+                    {post.title}
+                  </h3>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Right Arrow */}
           <button
-            onClick={handleNext}
-            className="absolute right-0 z-10 text-4xl md:text-5xl font-light text-muted-foreground hover:text-foreground transition-colors duration-300 select-none"
+            onClick={goNext}
+            className="absolute right-0 md:right-10 text-4xl md:text-5xl font-light text-muted-foreground hover:text-foreground transition-colors duration-300 select-none"
           >
             ›
           </button>
         </div>
 
-        {/* Dots indicator */}
+        {/* Dots */}
         <div className="flex justify-center gap-2 mt-8">
-          {blogPosts.map((_, index) => (
+          {blogPosts.map((_, i) => (
             <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex
+              key={i}
+              onClick={() => goTo(i)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === index
                   ? "bg-primary w-6"
-                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  : "bg-muted-foreground/30 w-2 hover:bg-muted-foreground/50"
               }`}
             />
           ))}

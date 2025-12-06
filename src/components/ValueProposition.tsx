@@ -45,13 +45,18 @@ export const ValueProposition = () => {
       <div className="container relative z-10 px-4">
         {/* Section header */}
         <div className="mx-auto max-w-3xl text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Unleash the Power of{" "}
-            <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white/90 mb-4 leading-tight">
+            Unleash the Power of <br />
+            <span
+              className="
+                bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent
+                dark:bg-gradient-to-r dark:from-accent dark:to-white/90
+              "
+            >
               Generative AI
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-foreground/80">
             Transform your innovation process and empower your team for peak productivity
           </p>
         </div>
