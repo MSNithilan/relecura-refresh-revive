@@ -3,9 +3,9 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-primary dark:bg-[hsl(204_15%_4%)]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-primary/90">
       {/* Animated background gradient mesh */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(173_68%_51%/0.1),transparent_50%),radial-gradient(circle_at_70%_80%,hsl(173_68%_51%/0.08),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(195_92%_58%/0.15),transparent_50%),radial-gradient(circle_at_70%_80%,hsl(220_92%_68%/0.15),transparent_50%)]" />
       
       {/* Animated grid pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(0_0%_100%/0.03)_1px,transparent_1px),linear-gradient(to_bottom,hsl(0_0%_100%/0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
@@ -69,8 +69,8 @@ export const Hero = () => {
         </div>
       </div>
       
-      {/* Bottom gradient fade - extended and smoother */}
-      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent" />
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };

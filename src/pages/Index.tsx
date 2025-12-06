@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { ValueProposition } from "@/components/ValueProposition";
-import { VideoShowcase } from "@/components/VideoShowcase";
 import { Solutions } from "@/components/Solutions";
 import { BlogCarousel } from "@/components/BlogCarousel";
 import { CTA } from "@/components/CTA";
@@ -13,7 +12,6 @@ const Index = () => {
       <Navbar />
       <Hero />
       <ValueProposition />
-      <VideoShowcase />
       <Solutions />
       <BlogCarousel />
       <CTA />
