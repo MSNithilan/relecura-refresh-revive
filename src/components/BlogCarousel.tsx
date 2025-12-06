@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import blog1 from "@/assets/blog-1.png";
 import blog2 from "@/assets/blog-2.png";
 import blog3 from "@/assets/blog-3.png";
@@ -25,6 +23,8 @@ const blogPosts = [
 
 export const BlogCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [slideDirection, setSlideDirection] = useState<"left" | "right">("right");
 
   const getVisiblePosts = () => {
     const prev = (currentIndex - 1 + blogPosts.length) % blogPosts.length;
@@ -37,11 +37,23 @@ export const BlogCarousel = () => {
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + blogPosts.length) % blogPosts.length);
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setSlideDirection("left");
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev - 1 + blogPosts.length) % blogPosts.length);
+      setIsAnimating(false);
+    }, 300);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % blogPosts.length);
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setSlideDirection("right");
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev + 1) % blogPosts.length);
+      setIsAnimating(false);
+    }, 300);
   };
 
   const visiblePosts = getVisiblePosts();
@@ -60,40 +72,52 @@ export const BlogCarousel = () => {
 
         <div className="relative flex items-center justify-center gap-4 md:gap-8">
           {/* Left Arrow */}
-          <Button
-            variant="outline"
-            size="icon"
+          <button
             onClick={handlePrev}
-            className="absolute left-0 z-10 h-12 w-12 rounded-full border-border/50 bg-background/80 backdrop-blur-sm hover:bg-background shadow-lg transition-all duration-300 hover:scale-110"
+            className="absolute left-0 z-10 text-4xl md:text-5xl font-light text-muted-foreground hover:text-foreground transition-colors duration-300 select-none"
           >
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
+            ‹
+          </button>
 
           {/* Carousel Items */}
-          <div className="flex items-center justify-center gap-4 md:gap-6 overflow-hidden px-16">
+          <div className="flex items-center justify-center gap-4 md:gap-6 overflow-hidden px-12 md:px-20">
             {visiblePosts.map((post, index) => (
               <div
                 key={`${post.title}-${index}`}
                 className={`transition-all duration-500 ease-out ${
                   post.position === "center"
                     ? "scale-100 opacity-100 z-10"
-                    : "scale-75 opacity-60 z-0 hidden md:block"
+                    : "scale-75 opacity-50 z-0 hidden md:block"
+                } ${
+                  isAnimating
+                    ? slideDirection === "right"
+                      ? "translate-x-[-20px]"
+                      : "translate-x-[20px]"
+                    : "translate-x-0"
                 }`}
               >
                 <div className={`${
                   post.position === "center" 
-                    ? "w-[320px] md:w-[400px]" 
-                    : "w-[200px] md:w-[280px]"
+                    ? "w-[360px] md:w-[520px] lg:w-[600px]" 
+                    : "w-[180px] md:w-[260px] lg:w-[300px]"
                 }`}>
-                  <div className="overflow-hidden rounded-xl shadow-lg transition-transform duration-300 hover:shadow-xl">
+                  <div className={`overflow-hidden rounded-xl shadow-lg transition-all duration-500 ${
+                    isAnimating ? "scale-95" : "scale-100"
+                  } hover:shadow-xl`}>
                     <img
                       src={post.image}
                       alt={post.title}
-                      className="w-full h-48 md:h-64 object-cover transition-transform duration-500 hover:scale-105"
+                      className={`w-full object-cover transition-all duration-500 ${
+                        post.position === "center" 
+                          ? "h-56 md:h-72 lg:h-80" 
+                          : "h-40 md:h-52 lg:h-60"
+                      } ${isAnimating ? "scale-105" : "scale-100 hover:scale-105"}`}
                     />
                   </div>
                   {post.position === "center" && (
-                    <div className="mt-4">
+                    <div className={`mt-4 transition-all duration-300 ${
+                      isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+                    }`}>
                       <p className="text-primary font-medium text-sm mb-2">
                         {post.date}
                       </p>
@@ -108,14 +132,12 @@ export const BlogCarousel = () => {
           </div>
 
           {/* Right Arrow */}
-          <Button
-            variant="outline"
-            size="icon"
+          <button
             onClick={handleNext}
-            className="absolute right-0 z-10 h-12 w-12 rounded-full border-border/50 bg-background/80 backdrop-blur-sm hover:bg-background shadow-lg transition-all duration-300 hover:scale-110"
+            className="absolute right-0 z-10 text-4xl md:text-5xl font-light text-muted-foreground hover:text-foreground transition-colors duration-300 select-none"
           >
-            <ChevronRight className="h-6 w-6" />
-          </Button>
+            ›
+          </button>
         </div>
 
         {/* Dots indicator */}
