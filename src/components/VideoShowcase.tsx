@@ -5,15 +5,29 @@ import { Card } from "@/components/ui/card";
 export const VideoShowcase = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const videoUrl =
-    "https://www.youtube.com/embed/jNl_pgt-g_Y";
+  const videoUrl = "https://www.youtube.com/embed/jNl_pgt-g_Y";
 
   return (
-    <section className="py-16 md:py-24 bg-background">
-      <div className="container px-4">
-        <Card className="overflow-hidden border-border bg-card/80 backdrop-blur-sm
+    <section className="relative py-16 md:py-24 bg-background overflow-hidden">
+      {/* 🔹 Grid background (behind everything, but clearly visible) */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.05),transparent_55%),radial-gradient(circle_at_bottom,rgba(45,212,191,0.2),transparent_55%)]" />
+      <div
+        className="
+          pointer-events-none
+          absolute inset-0
+          bg-[linear-gradient(to_right,rgba(148,163,184,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.15)_1px,transparent_1px)]
+          bg-[size:4rem_4rem]
+          opacity-60
+          dark:opacity-40
+        "
+      />
+
+      <div className="container px-4 relative z-10">
+        <Card
+          className="overflow-hidden border-border bg-card/80 backdrop-blur-sm
             dark:shadow-[0_0_25px_rgba(0,255,255,0.32),0_0_40px_rgba(255,255,255,0.35)]
-            transition-shadow duration-300">
+            transition-shadow duration-300"
+        >
           <div className="relative w-full aspect-[16/9]">
             {/* When playing: show iframe */}
             {isPlaying ? (
@@ -57,7 +71,9 @@ export const VideoShowcase = () => {
 
                     <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white/90">
                       Business Insights using{" "}
-                      <span className="text-accent">Relecura&apos;s Innovation Tools</span>
+                      <span className="text-accent">
+                        Relecura&apos;s Innovation Tools
+                      </span>
                     </h3>
                     <p className="text-sm sm:text-base text-white/70 max-w-xl">
                       Watch how Relecura&apos;s AI-driven platform uncovers deep

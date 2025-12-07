@@ -12,7 +12,7 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(195_92%_58%/0.25),transparent_50%),radial-gradient(circle_at_70%_80%,hsl(220_92%_68%/0.20),transparent_50%)]" />
 
       {/* Animated grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(0_0%_100%/0.03)_1px,transparent_1px),linear-gradient(to_bottom,hsl(0_0%_100%/0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(0_0%_100%/0.07)_1px,transparent_1px),linear-gradient(to_bottom,hsl(0_0%_100%/0.07)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
       {/* Content */}
       <div className="container relative z-10 px-4 py-20 md:py-32">

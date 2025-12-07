@@ -79,19 +79,28 @@ export const Solutions = () => {
 
   return (
     <section className="py-20 md:py-32 bg-secondary/30 relative overflow-hidden dark:text-white/90">
+      {/* 🔹 GRID + GLOW BACKGROUND (VISIBLE) */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        {/* Soft color glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.22),transparent_55%),radial-gradient(circle_at_bottom,rgba(45,212,191,0.06),transparent_55%)]" />
+
+        {/* Grid lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.25)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.25)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-60 mix-blend-soft-light dark:mix-blend-normal" />
+      </div>
+
       <div className="container px-4 relative z-10">
         {/* Section header */}
-        <div className="mx-auto max-w-3xl text-center mb-16"> 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 dark:text-white/90"> 
-            Comprehensive Solutions for{" "} 
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"> 
-              Every Challenge 
-            </span> 
-            </h2> 
-            <p className="text-lg text-muted-foreground"> 
-              Drive growth through insights that matter 
-            </p> 
-          </div>
+        <div className="mx-auto max-w-3xl text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 dark:text-white/90">
+            Comprehensive Solutions for{" "}
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Every Challenge
+            </span>
+          </h2>
+          <p className="text-lg text-muted-foreground">
+            Drive growth through insights that matter
+          </p>
+        </div>
 
         {/* Solutions tabs */}
         <div className="max-w-6xl mx-auto">
