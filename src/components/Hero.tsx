@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { HeroStats } from "./HeroStats";
+
 
 export const Hero = () => {
   return (
@@ -66,6 +68,7 @@ export const Hero = () => {
                 </div>
               ))}
             </div>
+            <HeroStats />
           </div>
         </div>
       </div>

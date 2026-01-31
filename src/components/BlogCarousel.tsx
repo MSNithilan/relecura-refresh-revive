@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import blog1 from "@/assets/blog-1.png";
 import blog2 from "@/assets/blog-2.png";
@@ -23,7 +23,7 @@ const blogPosts = [
   },
 ];
 
-// Framer Motion variants for sliding left/right
+// Framer Motion variants
 const slideVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? 150 : -150,
@@ -44,11 +44,29 @@ const slideVariants = {
 
 export const BlogCarousel = () => {
   const [[index, direction], setIndex] = useState<[number, number]>([0, 0]);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const post = blogPosts[index];
 
+  // 🔁 Auto-rotate every 2s (stops after interaction)
+  useEffect(() => {
+    if (hasInteracted) return;
+
+    const interval = setInterval(() => {
+      setIndex(([i]) => [(i + 1) % blogPosts.length, 1]);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [hasInteracted]);
+
+  const markInteraction = () => {
+    if (!hasInteracted) setHasInteracted(true);
+  };
+
   const goTo = (newIndex: number) => {
     if (newIndex === index) return;
+    markInteraction();
+
     const dir = newIndex > index ? 1 : -1;
     setIndex([
       ((newIndex % blogPosts.length) + blogPosts.length) % blogPosts.length,
@@ -57,17 +75,13 @@ export const BlogCarousel = () => {
   };
 
   const goNext = () => {
-    setIndex(([i]) => {
-      const next = (i + 1) % blogPosts.length;
-      return [next, 1];
-    });
+    markInteraction();
+    setIndex(([i]) => [(i + 1) % blogPosts.length, 1]);
   };
 
   const goPrev = () => {
-    setIndex(([i]) => {
-      const prev = (i - 1 + blogPosts.length) % blogPosts.length;
-      return [prev, -1];
-    });
+    markInteraction();
+    setIndex(([i]) => [(i - 1 + blogPosts.length) % blogPosts.length, -1]);
   };
 
   return (
@@ -79,12 +93,9 @@ export const BlogCarousel = () => {
         dark:bg-background/20
       "
     >
-      {/* Glow + grid background (sits behind content, but above raw page) */}
+      {/* Glow + grid background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* Soft color glow that connects with Solutions above */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_55%),radial-gradient(circle_at_bottom,rgba(45,212,191,0.12),transparent_55%)]" />
-
-        {/* Grid lines */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.22)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-70 mix-blend-soft-light dark:mix-blend-normal" />
       </div>
 

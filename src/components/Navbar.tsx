@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
-import logo from "@/assets/relecura_newlogo.png"; //
+import logo from "@/assets/relecura_newlogo.png"; 
+import logo1 from "@/assets/relecura_logo.avif"; 
 
 const navigation = [
   { 
@@ -74,6 +75,7 @@ export const Navbar = () => {
           <div className="flex items-center gap-3">
             <img
               src={logo}
+              //src={logo1}
               alt="Relecura logo"
               className="h-12 w-12 mt-1 object-contain"
             />
