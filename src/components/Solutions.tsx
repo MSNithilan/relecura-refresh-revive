@@ -78,15 +78,7 @@ export const Solutions = () => {
   }
 
   return (
-    <section className="py-20 md:py-32 bg-secondary/30 relative overflow-hidden dark:text-white/90">
-      {/* 🔹 GRID + GLOW BACKGROUND (VISIBLE) */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* Soft color glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.22),transparent_55%),radial-gradient(circle_at_bottom,rgba(45,212,191,0.06),transparent_55%)]" />
-
-        {/* Grid lines */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.25)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.25)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-60 mix-blend-soft-light dark:mix-blend-normal" />
-      </div>
+    <section className="py-20 md:py-32 relative">
 
       <div className="container px-4 relative z-10">
         {/* Section header */}

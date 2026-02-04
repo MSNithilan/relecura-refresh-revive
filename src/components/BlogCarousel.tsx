@@ -87,18 +87,10 @@ export const BlogCarousel = () => {
   return (
     <section
       className="
-        relative overflow-hidden
+        relative
         py-20
-        bg-secondary/30
-        dark:bg-background/20
       "
     >
-      {/* Glow + grid background */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_55%),radial-gradient(circle_at_bottom,rgba(45,212,191,0.12),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.22)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-70 mix-blend-soft-light dark:mix-blend-normal" />
-      </div>
-
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">

@@ -25,7 +25,16 @@ const testimonials = [
 ];
 export const Testimonials = () => {
   return (
-    <section className="py-20 md:py-28 border-2 border-solid border-[#8BE2DE] rounded-3xl m-10">
+    <section className="
+    relative
+    py-20 md:py-28
+    rounded-3xl m-10
+
+    bg-background/80
+    backdrop-blur-s
+
+    border-2 border-[#8BE2DE]
+  ">
       <div className="container px-4">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-12">

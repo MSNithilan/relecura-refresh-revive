@@ -38,10 +38,7 @@ const benefits = [
 
 export const ValueProposition = () => {
   return (
-    <section className="py-20 md:py-32 bg-background relative overflow-hidden">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-50" />
-      
+    <section className="relative py-20 md:py-32">
       <div className="container relative z-10 px-4">
         {/* Section header */}
         <div className="mx-auto max-w-3xl text-center mb-16">

@@ -2,12 +2,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
-import logo from "@/assets/relecura_newlogo.png"; 
-import logo1 from "@/assets/relecura_logo.avif"; 
+import logo from "@/assets/relecura_newlogo.png";
 
 const navigation = [
-  { 
-    name: "Who We Are", 
+  {
+    name: "Who We Are",
     href: "#solutions",
     submenu: [
       { name: "About Relecura", href: "#about" },
@@ -15,16 +14,16 @@ const navigation = [
       { name: "Leadership Team", href: "#team" },
     ],
   },
-  { 
-    name: "Why Relecura", 
+  {
+    name: "Why Relecura",
     href: "#about",
     submenu: [
       { name: "Our Approach", href: "#approach" },
       { name: "Case Studies", href: "#case-studies" },
     ],
   },
-  { 
-    name: "Industries", 
+  {
+    name: "Industries",
     href: "#industries",
     submenu: [
       { name: "Technology", href: "#tech" },
@@ -32,16 +31,16 @@ const navigation = [
       { name: "Manufacturing", href: "#manufacturing" },
     ],
   },
-  { 
-    name: "Our Offerings", 
+  {
+    name: "Our Offerings",
     href: "#resources",
     submenu: [
       { name: "Platform", href: "#platform" },
       { name: "Services", href: "#services" },
     ],
   },
-  { 
-    name: "Resources", 
+  {
+    name: "Resources",
     href: "#about",
     submenu: [
       { name: "Blog", href: "#blog" },
@@ -49,8 +48,8 @@ const navigation = [
       { name: "Webinars", href: "#webinars" },
     ],
   },
-  { 
-    name: "Contact", 
+  {
+    name: "Contact",
     href: "#about",
     submenu: [
       { name: "Contact Us", href: "#contact" },
@@ -71,11 +70,15 @@ export const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
       <div className="container px-4">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
+
+          {/* ✅ CLICKABLE LOGO */}
+          <a
+            href="#"
+            className="flex items-center gap-3 cursor-pointer "
+            onClick={() => setMobileMenuOpen(false)}
+          >
             <img
               src={logo}
-              //src={logo1}
               alt="Relecura logo"
               className="h-12 w-12 mt-1 object-contain"
             />
@@ -88,16 +91,12 @@ export const Navbar = () => {
                 AI FOR INNOVATION INTELLIGENCE
               </span>
             </div>
-          </div>
+          </a>
 
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navigation.map((item) => (
-              <div
-                key={item.name}
-                className="relative group"
-              >
-                {/* Top-level link */}
+              <div key={item.name} className="relative group">
                 <a
                   href={item.href}
                   className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
@@ -105,38 +104,23 @@ export const Navbar = () => {
                   {item.name}
                 </a>
 
-                {/* Dropdown menu */}
                 {item.submenu && (
                   <div
                     className="
                       absolute left-1/2 top-full mt-3 -translate-x-1/2
-                      w-44
-                      rounded-xl
-                      border border-border/40
-                      bg-background/90 backdrop-blur-xl
-                      shadow-lg
+                      w-44 rounded-xl border border-border/40
+                      bg-background/90 backdrop-blur-xl shadow-lg
                       opacity-0 invisible translate-y-1
                       group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
-                      transition-all duration-200
-                      z-50
-                      overflow-hidden
+                      transition-all duration-200 z-50 overflow-hidden
                     "
                   >
-
-
                     <ul className="flex flex-col">
                       {item.submenu.map((sub) => (
                         <li key={sub.name}>
                           <a
                             href={sub.href}
-                            className="
-                              block w-full
-                              px-3 py-2
-                              text-sm text-center
-                              text-foreground/80 hover:text-foreground
-                              hover:bg-accent/40
-                              transition-colors
-                            "
+                            className="block px-3 py-2 text-sm text-center text-foreground/80 hover:text-foreground hover:bg-accent/40 transition-colors"
                           >
                             {sub.name}
                           </a>
@@ -149,90 +133,35 @@ export const Navbar = () => {
             ))}
           </div>
 
-
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-2 ">
-            
-            <Button variant="ghost" className="  
-              text-foreground/80 
-              hover:bg-accent/70 
-              dark:hover:bg-accent/80
-              hover:text-foreground 
-              dark:hover:text-gray-800
-              transition-colors">
-              Sign In 
-            </Button>
-            <Button variant="ghost" className="  
-              text-foreground/80 
-              hover:bg-accent/70 
-              dark:hover:bg-accent/80
-              hover:text-foreground 
-              dark:hover:text-gray-800
-              transition-colors">
-              Request Demo
-            </Button>
+          <div className="hidden md:flex items-center gap-2">
+            <Button variant="ghost">Sign In</Button>
+            <Button variant="ghost">Request Demo</Button>
+
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg hover:bg-secondary transition-colors"
-              aria-label="Toggle theme"
             >
               {theme === "dark" ? (
-                <Sun className="h-5 w-5 text-foreground" />
+                <Sun className="h-5 w-5" />
               ) : (
-                <Moon className="h-5 w-5 text-foreground" />
+                <Moon className="h-5 w-5" />
               )}
             </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-secondary transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5 text-foreground" />
-              ) : (
-                <Moon className="h-5 w-5 text-foreground" />
-              )}
+            <button onClick={toggleTheme} className="p-2 rounded-lg hover:bg-secondary">
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
-            <button
-              type="button"
-              className="rounded-lg p-2 text-foreground hover:bg-secondary"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border/40 bg-background/95 backdrop-blur-xl">
-          <div className="container px-4 py-6 space-y-4">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="block text-base font-medium text-foreground/80 hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </a>
-            ))}
-            <div className="pt-4 space-y-3">
-              <Button variant="ghost" className="w-full justify-start">
-                Sign In
-              </Button>
-              <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-                Request Demo
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
     </nav>
   );
 };

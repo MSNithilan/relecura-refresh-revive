@@ -5,13 +5,6 @@ export const CTA = () => {
   return (
     <section className="relative py-16 md:py-20">
       {/* Glow + grid background (sits behind content, but above raw page) */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* Soft color glow that connects with Solutions above */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.05),transparent_55%),radial-gradient(circle_at_bottom,rgba(56,189,248,0.12),transparent_55%)]" />
-
-        {/* Grid lines */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.22)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-70 mix-blend-soft-light dark:mix-blend-normal" />
-      </div>
       <div
         className="
           container px-4
