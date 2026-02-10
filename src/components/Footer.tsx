@@ -1,6 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { Linkedin, Twitter, Youtube, Instagram, Facebook } from "lucide-react";
-import logo from "@/assets/relecura_newlogo.png";
+import logo1 from "@/assets/relecura_newlogo.png";
+import logo2 from "@/assets/relecura_logo.avif";
 
 const footerLinks = {
   Links: ["Solutions", "Products", "Careers"],
@@ -35,7 +36,8 @@ export const Footer = () => {
           {/* LEFT — Brand + Social + Call */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <img src={logo} alt="Relecura logo" className="h-10 w-10 object-contain" />
+              <img src={logo1} alt="Relecura logo" className="h-10 w-10 object-contain" />
+              {/* <img src={logo1} alt="Relecura logo" className="h-10 w-10 object-contain" /> */}
               <span className="text-3xl font-bold">
                 <span className="text-foreground">Rele</span>
                 <span className="text-[#4AB8B2] dark:text-[#8BE2DE]">cura</span>

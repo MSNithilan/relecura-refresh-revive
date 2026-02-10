@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
-import logo from "@/assets/relecura_newlogo.png";
+import logo1 from "@/assets/relecura_newlogo.png";
+import logo2 from "@/assets/relecura_logo.avif";
 
 const navigation = [
   {
@@ -78,7 +79,8 @@ export const Navbar = () => {
             onClick={() => setMobileMenuOpen(false)}
           >
             <img
-              src={logo}
+              src={logo1}
+              //src={logo2}
               alt="Relecura logo"
               className="h-12 w-12 mt-1 object-contain"
             />
